@@ -1,0 +1,299 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Sun Africa Loans</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a2b3e 0%, #1b4d6e 50%, #0f2c3f 100%);
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background shapes */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 40%, rgba(255,215,0,0.15) 0%, rgba(0,0,0,0) 50%);
+      animation: drift 20s infinite linear;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle at 80% 70%, rgba(230,126,34,0.1) 0%, rgba(0,0,0,0) 60%);
+      animation: driftReverse 25s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-10%, -10%) rotate(5deg); }
+    }
+
+    @keyframes driftReverse {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(10%, 10%) rotate(-5deg); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      background: rgba(255, 215, 0, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      50% { transform: translateY(-40px) translateX(20px); opacity: 0.8; }
+    }
+
+    /* Main card */
+    .form-box {
+      max-width: 480px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 48px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.2);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.4s;
+      animation: fadeSlideUp 0.8s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 40px 60px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(255, 215, 0, 0.5);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(120deg, #002b5b, #e67e22);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .subhead {
+      text-align: center;
+      color: #4a5568;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      border-bottom: 1px dashed #e2e8f0;
+      display: inline-block;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 8px;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 60px;
+      background: white;
+      transition: all 0.3s ease;
+      outline: none;
+      font-weight: 500;
+    }
+
+    input:focus {
+      border-color: #e67e22;
+      box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.2);
+      transform: scale(1.01);
+    }
+
+    input:hover {
+      border-color: #ffb347;
+      background: #fffef7;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(90deg, #002b5b, #003f7f);
+      border: none;
+      border-radius: 60px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+      box-shadow: 0 8px 20px rgba(0, 43, 91, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #e67e22, #f39c12);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(230, 126, 34, 0.4);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .forgot-link {
+      display: block;
+      text-align: right;
+      margin-top: -0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .forgot-link a, .signup-link a {
+      color: #e67e22;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .forgot-link a:hover, .signup-link a:hover {
+      color: #002b5b;
+      text-decoration: underline;
+    }
+
+    .message {
+      text-align: center;
+      padding: 12px;
+      border-radius: 60px;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-left: 5px solid #b91c1c;
+    }
+
+    .success {
+      background: #e0f7e8;
+      color: #2e7d32;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 1.8rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eef2f7;
+    }
+
+    /* animated decorative elements */
+    .sun-icon {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      animation: sunRotate 8s infinite linear;
+      display: inline-block;
+      width: 100%;
+    }
+
+    @keyframes sunRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 550px) {
+      .form-box {
+        padding: 1.8rem;
+        border-radius: 32px;
+      }
+      h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- dynamic particles via JS -->
+  <div class="form-box">
+    <div class="sun-icon">☀️</div>
+    <h2>Welcome Back</h2>
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+      <span class="subhead">Sun Africa Loans • Fast & Secure</span>
+    </div>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="email" id="loginEmail" placeholder="📧 Email address" required>
+      </div>
+      <div class="input-group">
+        <input type="password" id="loginPassword" placeholder="🔒 Password" required>
+      </div>
+      <div class="forgot-link">
+        <a href="#" id="forgotPasswordLink">Forgot password?</a>
+      </div>
+      <button type="submit">→ Sign In</button>
+    </form>
+    <p id="loginMessage" class="message"></p>
+    <div class="signup-link">
+      🌱 New to Sun Africa? <a href="register.html">Create free account</a>
+    </div>
+  </div>
+
+  <script>
+    // Create floating particles background
+    function createParticles() {
+      const particleCount = 25;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const size = Math.random() * 8 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 8}s`;
+        particle.style.animationDuration = `${Math.random() * 6 + 5}s`;
+        particle.style.opacity = Math.random() * 0.5 + 0.2;
+        document.body.appendChild(particle);
+      }
+    }
+    createParticles();
+  </script>
+  <script type="module" src="js/login.js"></script>
+</body>
+</html>

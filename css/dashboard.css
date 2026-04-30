@@ -1,0 +1,15 @@
+/* css/dashboard.css */
+body { margin:0; background:#f0f2f5; font-family:'Segoe UI';}
+.dashboard-nav { background:#002b5b; color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center;}
+.logout-btn { background:#e67e22; border:none; padding:6px 14px; border-radius:40px; cursor:pointer; color:white;}
+.dashboard-container { display:flex; max-width:1300px; margin:2rem auto; gap:2rem; padding:0 20px;}
+.sidebar { width:240px; background:white; border-radius:24px; padding:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+.sidebar button { display:block; width:100%; text-align:left; background:transparent; border:none; padding:12px 18px; margin:6px 0; border-radius:40px; font-weight:500; cursor:pointer;}
+.sidebar button.active-tab { background:#002b5b; color:white;}
+.main-content { flex:1; background:white; border-radius:24px; padding:1.8rem; box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+.tab-content { display:none;}
+.tab-content.active { display:block;}
+.card { background:#fff; border-radius:20px;}
+.doc-link { display:inline-block; margin:5px 10px 5px 0; background:#eef2ff; padding:6px 12px; border-radius:24px; text-decoration:none; color:#002b5b;}
+.status-badge { padding:4px 14px; border-radius:100px; font-size:0.8rem; font-weight:bold; display:inline-block;}
+.pending { background:#fef3c7; color:#b45309; } .approved { background:#e0f2fe; color:#0369a1; } .rejected { background:#fee2e2; color:#b91c1c; }

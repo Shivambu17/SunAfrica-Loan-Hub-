@@ -1,0 +1,362 @@
+<!-- apply-loan.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Loan | Sun Africa Loans</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a2b3e 0%, #1b4d6e 50%, #0f2c3f 100%);
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 2rem 1rem;
+    }
+
+    /* Animated background shapes */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 40%, rgba(255,215,0,0.15) 0%, rgba(0,0,0,0) 50%);
+      animation: drift 20s infinite linear;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle at 80% 70%, rgba(230,126,34,0.1) 0%, rgba(0,0,0,0) 60%);
+      animation: driftReverse 25s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-10%, -10%) rotate(5deg); }
+    }
+
+    @keyframes driftReverse {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(10%, 10%) rotate(-5deg); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      background: rgba(255, 215, 0, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      50% { transform: translateY(-40px) translateX(20px); opacity: 0.8; }
+    }
+
+    /* Main card */
+    .form-box {
+      max-width: 680px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 48px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.2);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.4s;
+      animation: fadeSlideUp 0.8s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 40px 60px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(255, 215, 0, 0.5);
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2.3rem;
+      text-align: center;
+      margin-bottom: 0.25rem;
+      background: linear-gradient(120deg, #002b5b, #e67e22);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .subhead {
+      text-align: center;
+      color: #4a5568;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      border-bottom: 1px dashed #e2e8f0;
+      display: inline-block;
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 6px;
+    }
+
+    .sun-icon {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 0.25rem;
+      animation: sunRotate 8s infinite linear;
+      display: inline-block;
+      width: 100%;
+    }
+
+    @keyframes sunRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h4 {
+      color: #002b5b;
+      margin: 1.5rem 0 0.8rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-left: 4px solid #e67e22;
+      padding-left: 12px;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    select, input[type="text"], input[type="file"], input[type="checkbox"] {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 60px;
+      background: white;
+      transition: all 0.3s ease;
+      outline: none;
+      font-weight: 500;
+      font-family: inherit;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23002b5b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+    }
+
+    input[readonly] {
+      background: #f7fafc;
+      cursor: default;
+    }
+
+    select:focus, input:focus {
+      border-color: #e67e22;
+      box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.2);
+      transform: scale(1.01);
+    }
+
+    select:hover, input:hover {
+      border-color: #ffb347;
+      background: #fffef7;
+    }
+
+    .file-input {
+      margin-bottom: 1.2rem;
+    }
+
+    .file-input label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #2c3e50;
+    }
+
+    input[type="file"] {
+      padding: 10px 14px;
+      background: #fef9e6;
+      border: 2px dashed #ffb347;
+      cursor: pointer;
+    }
+
+    input[type="file"]:hover {
+      background: #fff7e8;
+      border-color: #e67e22;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.5rem 0 1.2rem;
+    }
+
+    .checkbox input {
+      width: 22px;
+      height: 22px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: #e67e22;
+    }
+
+    .checkbox label {
+      font-size: 0.9rem;
+      color: #2c3e50;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(90deg, #002b5b, #003f7f);
+      border: none;
+      border-radius: 60px;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      box-shadow: 0 8px 20px rgba(0, 43, 91, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #e67e22, #f39c12);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(230, 126, 34, 0.4);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .message {
+      text-align: center;
+      padding: 12px;
+      border-radius: 60px;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-left: 5px solid #b91c1c;
+    }
+
+    .success {
+      background: #e0f7e8;
+      color: #2e7d32;
+    }
+
+    @media (max-width: 550px) {
+      .form-box {
+        padding: 1.8rem;
+        border-radius: 32px;
+      }
+      h2 { font-size: 1.8rem; }
+      h4 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <div class="sun-icon">💰</div>
+    <h2>Loan Application</h2>
+    <div style="text-align: center; margin-bottom: 1.8rem;">
+      <span class="subhead">Fast approval • Competitive rates</span>
+    </div>
+
+    <form id="loanApplicationForm">
+      <h4>📊 Loan Details</h4>
+      <div class="input-group">
+        <select id="loanAmount" required>
+          <option value="">Select amount (R)</option>
+          <option value="400">R400</option>
+          <option value="800">R800</option>
+          <option value="1500">R1500</option>
+          <option value="3000">R3000</option>
+          <option value="5000">R5000</option>
+          <option value="8000">R8000</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="text" id="interestRateDisplay" placeholder="Interest rate (auto-calculated)" readonly>
+      </div>
+
+      <h4>📎 Upload Required Documents</h4>
+      <div class="file-input">
+        <label>📄 3-Month Bank Statement (PDF, JPG, PNG)</label>
+        <input type="file" id="bankStatement" accept=".pdf,.jpg,.png" required>
+      </div>
+      <div class="file-input">
+        <label>📑 Latest Payslip</label>
+        <input type="file" id="payslip" accept=".pdf,.jpg,.png" required>
+      </div>
+      <div class="file-input">
+        <label>🆔 Original South African ID Copy</label>
+        <input type="file" id="idDocument" accept=".pdf,.jpg,.png" required>
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="terms" required>
+        <label>I agree to the <strong>terms and conditions</strong> & loan repayment policy</label>
+      </div>
+
+      <button type="submit">✓ Submit Loan Application</button>
+    </form>
+    <p id="loanAppMessage" class="message"></p>
+  </div>
+
+  <script>
+    // Floating particles background
+    (function createParticles() {
+      const particleCount = 28;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const size = Math.random() * 8 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 8}s`;
+        particle.style.animationDuration = `${Math.random() * 6 + 5}s`;
+        particle.style.opacity = Math.random() * 0.5 + 0.2;
+        document.body.appendChild(particle);
+      }
+    })();
+  </script>
+  <script type="module" src="js/loan.js"></script>
+</body>
+</html>
